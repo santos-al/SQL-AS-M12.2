@@ -10,9 +10,9 @@ function startApp() {
     inquirer.prompt([
         {
             type: 'list',
-            message: 'What would you like to do today \n',
+            message: '\nWhat would you like to do today? \n',
             name: 'userChoice',
-            choices: ['View Departments', 'View Roles', 'View Employees', 'Quit']
+            choices: ['View Departments', 'View Roles', 'View Employees', 'Add Department', 'Quit']
         }
     ])
     .then((data) => {
@@ -28,6 +28,9 @@ function startApp() {
                 break;
             case 'View Employees':
                 viewAllEmployees();
+                break;
+            case 'Add Department':
+                addDepartment();
                 break;
         }
     });
@@ -47,7 +50,7 @@ function viewAllDepartments() {
     });
 }
 
-function viewAllRoles () {
+function viewAllRoles() {
     db.viewRoles()
     .then(([roles]) => {
         console.table(roles);
@@ -57,7 +60,7 @@ function viewAllRoles () {
     });
 }
 
-function viewAllEmployees () {
+function viewAllEmployees() {
     db.viewEmployees()
     .then(([employees]) => {
         console.table(employees);
@@ -67,7 +70,23 @@ function viewAllEmployees () {
     });
 }
 
-// function addDepartment {}
+function addDepartment() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the department you would like to add?',
+            name: 'newDepartment'
+        }
+    ])
+    .then((data) => {
+        db.addDepartment(data.newDepartment)
+        console.log(`\n---------------------------------------------------------\n${data.newDepartment} has been added to the Departments table\n---------------------------------------------------------\n`)
+    })
+    .then(() => {
+        startApp();
+    });
+
+}
 
 // function addRole {}
 

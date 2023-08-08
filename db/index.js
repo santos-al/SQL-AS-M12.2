@@ -22,6 +22,12 @@ class Database {
             'SELECT id, first_name, last_name, role_id, manager_id FROM my_company.employee;'
         )
     }
+
+    addDepartment(newDepartment) {
+        return this.connection.promise().query(
+            `INSERT INTO my_company.department (name) VALUES ("${newDepartment}");`
+        )
+    }
 }
 
 
