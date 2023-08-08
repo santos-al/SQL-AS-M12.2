@@ -21,9 +21,14 @@ function startApp() {
                 viewAllDepartments();
                 break;
             case 'Quit':
+                quit();
                 break;
         }
     });
+}
+
+function quit() {
+    process.exit();
 }
 
 function viewAllDepartments() {
