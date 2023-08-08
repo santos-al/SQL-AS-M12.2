@@ -12,7 +12,7 @@ function startApp() {
             type: 'list',
             message: 'What would you like to do today',
             name: 'userChoice',
-            choices: ['View Departments', 'Quit']
+            choices: ['View Departments', 'View Roles', 'View Employees', 'Quit']
         }
     ])
     .then((data) => {
@@ -22,6 +22,12 @@ function startApp() {
                 break;
             case 'Quit':
                 quit();
+                break;
+            case 'View Roles':
+                viewAllRoles();
+                break;
+            case 'View Employess':
+                viewAllEmployees();
                 break;
         }
     });
@@ -34,14 +40,22 @@ function quit() {
 function viewAllDepartments() {
     db.viewDepartments()
     .then(([departments]) => {
-        console.table(departments)
-      })
-      .then(() => {
-        startApp()
-      })
+        console.table(departments);
+    })
+    .then(() => {
+        startApp();
+    })
 }
 
-// function viewAllRoles () {}
+function viewAllRoles () {
+    db.viewRoles()
+    .then(([roles]) => {
+        console.table(roles);
+    })
+    .then(() => {
+        startApp();
+    })
+}
 
 // function viewAllEmployees () {}
 

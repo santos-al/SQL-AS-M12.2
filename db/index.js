@@ -10,6 +10,12 @@ class Database {
             'SELECT id, name FROM my_company.department;'
         )
     }
+
+    viewRoles() {
+        return this.connection.promise().query(
+            'SELECT id, title, salary, department_id FROM my_company.role;'
+        )
+    }
 }
 
 
