@@ -10,7 +10,7 @@ function startApp() {
     inquirer.prompt([
         {
             type: 'list',
-            message: 'What would you like to do today',
+            message: 'What would you like to do today \n',
             name: 'userChoice',
             choices: ['View Departments', 'View Roles', 'View Employees', 'Quit']
         }
@@ -67,12 +67,12 @@ function viewAllEmployees () {
     });
 }
 
-// function addDepartment
+// function addDepartment {}
 
-// function addRole
+// function addRole {}
 
-// function addEmployee
+// function addEmployee {}
 
-// function updateEmployeeRole
+// function updateEmployeeRole {}
 
 init();
