@@ -28,6 +28,12 @@ class Database {
             `INSERT INTO my_company.department (name) VALUES ("${newDepartment}");`
         )
     }
+
+    addRole(title, salary, department_id) {
+        return this.connection.promise().query(
+            `INSERT INTO my_company.role (title, salary, department_id) VALUES ("${title}", "${salary}", "${department_id}");`
+        )
+    }
 }
 
 

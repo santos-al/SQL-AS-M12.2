@@ -12,7 +12,7 @@ function startApp() {
             type: 'list',
             message: '\nWhat would you like to do today? \n',
             name: 'userChoice',
-            choices: ['View Departments', 'View Roles', 'View Employees', 'Add Department', 'Quit']
+            choices: ['View Departments', 'View Roles', 'View Employees', 'Add Department', 'Add Role', 'Quit']
         }
     ])
     .then((data) => {
@@ -31,6 +31,9 @@ function startApp() {
                 break;
             case 'Add Department':
                 addDepartment();
+                break;
+            case 'Add Role':
+                addRole();
                 break;
         }
     });
@@ -88,10 +91,49 @@ function addDepartment() {
 
 }
 
-// function addRole {}
+function addRole() {
+    db.viewDepartments()
+    .then(([rows]) => {
+      let departments = rows;
+      const departmentChoices = departments.map(({ id, name }) => ({
+        name: name,
+        value: id
+      }));
+
+      console.log(departmentChoices.id)
+    
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the role you would like to add?',
+            name: 'title'
+        },
+        {
+            type: 'input',
+            message: 'What is the salary of the role?',
+            name: 'salary'
+        },
+        {
+            type: 'list',
+            message: 'What department will the role be a part of?',
+            name: 'department_id',
+            choices: departmentChoices
+        }
+    ])
+    .then((data) => {
+        db.addRole(data.title, data.salary, data.department_id)
+        console.log(`\n---------------------------------------------------------\n New role has been added to the Roles table\n---------------------------------------------------------\n`)
+    })
+    .then(() => {
+        startApp();
+    });
+})
+}
+
 
 // function addEmployee {}
 
 // function updateEmployeeRole {}
 
 init();
+
