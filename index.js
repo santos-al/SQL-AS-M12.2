@@ -26,7 +26,7 @@ function startApp() {
             case 'View Roles':
                 viewAllRoles();
                 break;
-            case 'View Employess':
+            case 'View Employees':
                 viewAllEmployees();
                 break;
         }
@@ -44,7 +44,7 @@ function viewAllDepartments() {
     })
     .then(() => {
         startApp();
-    })
+    });
 }
 
 function viewAllRoles () {
@@ -54,10 +54,18 @@ function viewAllRoles () {
     })
     .then(() => {
         startApp();
-    })
+    });
 }
 
-// function viewAllEmployees () {}
+function viewAllEmployees () {
+    db.viewEmployees()
+    .then(([employees]) => {
+        console.table(employees);
+    })
+    .then(() => {
+        startApp();
+    });
+}
 
 // function addDepartment
 

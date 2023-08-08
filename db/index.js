@@ -16,6 +16,12 @@ class Database {
             'SELECT id, title, salary, department_id FROM my_company.role;'
         )
     }
+
+    viewEmployees() {
+        return this.connection.promise().query(
+            'SELECT id, first_name, last_name, role_id, manager_id FROM my_company.employee;'
+        )
+    }
 }
 
 
