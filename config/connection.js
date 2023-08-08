@@ -1,4 +1,5 @@
 const mysql = require('mysql2');
+const path = require('path');
 
 // Add dotenv functionality to hide sensitive info
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
@@ -15,3 +16,5 @@ const db = mysql.createConnection(
     },
     console.log(`Connected to my_company database`)
   );
+
+module.exports = db;
