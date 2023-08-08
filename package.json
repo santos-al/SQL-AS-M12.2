@@ -4,7 +4,8 @@
   "license": "MIT",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "seed": "node seed/seeds.sql"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
