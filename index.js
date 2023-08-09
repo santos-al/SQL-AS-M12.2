@@ -12,7 +12,7 @@ function startApp() {
             type: 'list',
             message: '\nWhat would you like to do today? \n',
             name: 'userChoice',
-            choices: ['View Departments', 'View Roles', 'View Employees', 'Add Department', 'Add Role', 'Add Employee', 'Quit']
+            choices: ['View Departments', 'View Roles', 'View Employees', 'Add Department', 'Add Role', 'Add Employee', 'Update Employee role', 'Quit']
         }
     ])
     .then((data) => {
@@ -37,6 +37,9 @@ function startApp() {
                 break;
             case 'Add Employee':
                 addEmployee();
+                break;
+            case 'Update Employee role':
+                updateEmployeeRole();
                 break;
         }
     });
@@ -179,11 +182,51 @@ function addEmployee() {
                     startApp();
                 })
             })
-         })
+        })
     })
 }
 
-// function updateEmployeeRole {}
+function updateEmployeeRole() {
+    db.viewEmployees()
+    .then(([employees]) => {
+      const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+        name: `${first_name} ${last_name}`,
+        value: id
+      }));
+        inquirer.prompt([
+            {
+                type: 'list',
+                message: "Which employee's role would you like to update?",
+                name: 'employee',
+                choices: employeeChoices
+            }
+        ])
+        .then((data) => {
+            let employee = data.employee
+            db.viewRoles()
+            .then(([roles]) => {
+              const roleChoices = roles.map(({ id, title }) => ({
+                name: title,
+                value: id
+              }));
+              inquirer.prompt([
+                {
+                    type: 'list',
+                    message: "What will this employee's new role be",
+                    name: 'newRole',
+                    choices: roleChoices
+                }
+                ])
+                .then((data) => {
+                    db.updateEmployeeRole(employee, data.newRole)
+                    console.log(`\n---------------------------------------------------------\n Employee's role has been updated \n---------------------------------------------------------\n`)
+                    startApp();
+                })
+            })
+        })
+    })
+}
+
 
 init();
 

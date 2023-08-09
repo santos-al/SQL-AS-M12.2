@@ -40,6 +40,12 @@ class Database {
             `INSERT INTO my_company.employee (first_name, last_name, role_id, manager_id) VALUES ("${first_name}", "${last_name}", "${role_id}", "${manager_id}");`
         )
     }
+
+    updateEmployeeRole(employee_id, newRole) {
+        return this.connection.promise().query(
+            `UPDATE my_company.employee SET role_id = "${newRole}" WHERE id = "${employee_id}"`
+        )
+    }
 }
 
 
