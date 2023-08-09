@@ -34,6 +34,12 @@ class Database {
             `INSERT INTO my_company.role (title, salary, department_id) VALUES ("${title}", "${salary}", "${department_id}");`
         )
     }
+
+    addEmployee(first_name, last_name, role_id, manager_id) {
+        return this.connection.promise().query(
+            `INSERT INTO my_company.employee (first_name, last_name, role_id, manager_id) VALUES ("${first_name}", "${last_name}", "${role_id}", "${manager_id}");`
+        )
+    }
 }
 
 
